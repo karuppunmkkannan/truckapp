@@ -1,4 +1,4 @@
-package com.master.truckking;
+package com.truckking.truckapp;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
