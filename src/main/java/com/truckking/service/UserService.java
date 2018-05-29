@@ -34,4 +34,8 @@ public class UserService {
 		return userDAO.insertUser(user);
 	}
 
+	public User getUser(String userName) throws Exception {
+		return userDAO.getUser(userName);
+	}
+
 }

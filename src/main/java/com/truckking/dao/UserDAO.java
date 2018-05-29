@@ -37,5 +37,9 @@ public class UserDAO {
 	public User insertUser(User user) throws Exception {
 		return userRepo.save(user);
 	}
+	
+	public User getUser(String userName) throws Exception {
+		return userRepo.findOne(userName);
+	}
 
 }

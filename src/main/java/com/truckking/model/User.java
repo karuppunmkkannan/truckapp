@@ -6,10 +6,8 @@ package com.truckking.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +16,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -36,17 +33,12 @@ public class User implements Serializable {
 	 */
 	private static final long serialVersionUID = -1425383660285233845L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
-	@JsonProperty(value = "id")
-	private Long id;
-
 	@Column(name = "name")
 	@JsonProperty(value = "name")
 	private String name;
 
-	@Column(name = "userName")
+	@Id
+	@Column(name = "userName", nullable = false, unique = true, updatable = false)
 	@JsonProperty(value = "userName")
 	private String userName;
 
@@ -89,10 +81,9 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", address=" + address + ", password=" + password
-				+ ", mobileNumer=" + mobileNumer + ", email_id=" + email_id + ", gstn_no=" + gstn_no + ", approved_by="
-				+ approved_by + ", created_dt=" + created_dt + ", updated_dt=" + updated_dt + ", userType=" + userType
-				+ "]";
+		return "User [ name=" + name + ", address=" + address + ", password=" + password + ", mobileNumer="
+				+ mobileNumer + ", email_id=" + email_id + ", gstn_no=" + gstn_no + ", approved_by=" + approved_by
+				+ ", created_dt=" + created_dt + ", updated_dt=" + updated_dt + ", userType=" + userType + "]";
 	}
 
 	@JsonFormat(pattern = "yyyy-MM-dd")
@@ -127,14 +118,6 @@ public class User implements Serializable {
 
 	public void setUpdated_dt(Date updated_dt) {
 		this.updated_dt = updated_dt;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getName() {
