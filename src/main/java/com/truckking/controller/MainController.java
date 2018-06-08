@@ -1,7 +1,6 @@
 package com.truckking.controller;
 
 import org.apache.log4j.Logger;
-import org.hibernate.TransientPropertyValueException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.truckking.model.User;
 import com.truckking.service.UserService;
@@ -38,23 +38,22 @@ public class MainController {
 	@Autowired
 	private UserService userservice;
 
-	@RequestMapping("/")
-	String ping() {
-		logger.info("Server working ping...");
-		return "Server working... ping...";
+	@RequestMapping(value = { "/login", "/" }, method = RequestMethod.GET)
+	public @ResponseBody ModelAndView login() {
+
+		ModelAndView model = new ModelAndView("login");
+		logger.info("login page");
+
+		return model;
 	}
 
-	@RequestMapping("/index")
-	String index() {
-		try {
+	@RequestMapping(value = { "dashboard" }, method = RequestMethod.GET)
+	public @ResponseBody ModelAndView dashBoard() {
 
-			logger.info("Welcome page");
+		ModelAndView model = new ModelAndView("dashboard");
+		logger.info("dashboard page");
 
-		} catch (Exception e) {
-			logger.info("Exception in index", e);
-		}
-
-		return "index";
+		return model;
 	}
 
 	@RequestMapping(value = "/getUserTypeLists", method = RequestMethod.POST)
@@ -92,6 +91,7 @@ public class MainController {
 	@RequestMapping(value = "/findUser", method = RequestMethod.POST)
 	public @ResponseBody ModelMap findUser(@RequestParam(value = "userName") String userName,
 			@RequestParam(value = "passWord") String passWord) {
+
 		ModelMap modelMap = new ModelMap();
 		try {
 			User user = userservice.getUser(userName);
