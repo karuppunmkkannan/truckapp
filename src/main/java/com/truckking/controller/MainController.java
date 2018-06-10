@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.truckking.model.TJob;
 import com.truckking.model.User;
 import com.truckking.service.UserService;
 
@@ -56,6 +57,20 @@ public class MainController {
 		return model;
 	}
 
+	@RequestMapping(value = "/getTJobLists", method = RequestMethod.POST)
+	public @ResponseBody ModelMap getTJobLists() {
+		ModelMap modelMap = new ModelMap();
+		try {
+			modelMap.addAttribute("getTJobLists", userservice.getTJobLists());
+			modelMap.addAttribute("status", "success");
+		} catch (Exception e) {
+			logger.error("Exception in getTJobLists", e);
+			modelMap.addAttribute("status", "error");
+			modelMap.addAttribute("msg", e.getMessage());
+		}
+		return modelMap;
+	}
+
 	@RequestMapping(value = "/getUserTypeLists", method = RequestMethod.POST)
 	public @ResponseBody ModelMap getUserTypeLists() {
 		ModelMap modelMap = new ModelMap();
@@ -64,6 +79,20 @@ public class MainController {
 			modelMap.addAttribute("status", "success");
 		} catch (Exception e) {
 			logger.error("Exception in getUserTypeLists", e);
+			modelMap.addAttribute("status", "error");
+			modelMap.addAttribute("msg", e.getMessage());
+		}
+		return modelMap;
+	}
+
+	@RequestMapping(value = "/insertTJob", method = RequestMethod.POST)
+	public @ResponseBody ModelMap insertTJob(@RequestBody TJob tJob) {
+		ModelMap modelMap = new ModelMap();
+		try {
+			modelMap.addAttribute("user", userservice.insertTJob(tJob));
+			modelMap.addAttribute("status", "success");
+		} catch (Exception e) {
+			logger.error("Exception in insertTJob", e);
 			modelMap.addAttribute("status", "error");
 			modelMap.addAttribute("msg", e.getMessage());
 		}

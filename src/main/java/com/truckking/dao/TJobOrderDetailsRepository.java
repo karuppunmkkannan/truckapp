@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.truckking.model.TJobOrderDeatils;
 
 @Repository
-public interface TJobOrderDetailsRepository extends CrudRepository<TJobOrderDeatils, String> {
+public interface TJobOrderDetailsRepository extends CrudRepository<TJobOrderDeatils, Long> {
 
 }

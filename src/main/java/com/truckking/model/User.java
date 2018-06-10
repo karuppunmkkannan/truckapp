@@ -4,19 +4,25 @@
 package com.truckking.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author Karuppusamy
@@ -24,9 +30,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  */
 
+@Setter(AccessLevel.PUBLIC)
+@Getter(AccessLevel.PUBLIC)
+@ToString
 @Table(name = "User")
 @Entity // This tells Hibernate to make a table out of this class
-public class User implements Serializable {
+public class User extends Auditable implements Serializable {
 
 	/**
 	 * 
@@ -41,14 +50,6 @@ public class User implements Serializable {
 	@Column(name = "userName", nullable = false, unique = true, updatable = false)
 	@JsonProperty(value = "userName")
 	private String userName;
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
 
 	@Column(name = "address")
 	@JsonProperty(value = "address")
@@ -74,106 +75,22 @@ public class User implements Serializable {
 	@JsonProperty(value = "approved_by")
 	private String approved_by;
 
-	@JsonFormat(pattern = "yyyy-MM-dd")
-	@Column(name = "created_dt")
-	@JsonProperty(value = "created_dt")
-	private Date created_dt;
-
-	@Override
-	public String toString() {
-		return "User [ name=" + name + ", address=" + address + ", password=" + password + ", mobileNumer="
-				+ mobileNumer + ", email_id=" + email_id + ", gstn_no=" + gstn_no + ", approved_by=" + approved_by
-				+ ", created_dt=" + created_dt + ", updated_dt=" + updated_dt + ", userType=" + userType + "]";
-	}
-
-	@JsonFormat(pattern = "yyyy-MM-dd")
-	@Column(name = "updated_dt")
-	@JsonProperty(value = "updated_dt")
-	private Date updated_dt;
-
 	@OneToOne(targetEntity = UserType.class)
 	@JoinColumn(name = "type")
 	@JsonProperty(value = "type")
 	private UserType userType;
 
-	public UserType getUserType() {
-		return userType;
-	}
+	@OneToOne(targetEntity = Document.class, cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "documentid")
+	@JsonProperty(value = "documentid")
+	private Document document;
 
-	public void setUserType(UserType userType) {
-		this.userType = userType;
-	}
+	@OneToOne(targetEntity = TStatus.class)
+	@JoinColumn(name = "status")
+	@JsonProperty(value = "status")
+	private TStatus status;
 
-	public Date getCreated_dt() {
-		return created_dt;
-	}
-
-	public void setCreated_dt(Date created_dt) {
-		this.created_dt = created_dt;
-	}
-
-	public Date getUpdated_dt() {
-		return updated_dt;
-	}
-
-	public void setUpdated_dt(Date updated_dt) {
-		this.updated_dt = updated_dt;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getMobileNumer() {
-		return mobileNumer;
-	}
-
-	public void setMobileNumer(String mobileNumer) {
-		this.mobileNumer = mobileNumer;
-	}
-
-	public String getEmail_id() {
-		return email_id;
-	}
-
-	public void setEmail_id(String email_id) {
-		this.email_id = email_id;
-	}
-
-	public String getGstn_no() {
-		return gstn_no;
-	}
-
-	public void setGstn_no(String gstn_no) {
-		this.gstn_no = gstn_no;
-	}
-
-	public String getApproved_by() {
-		return approved_by;
-	}
-
-	public void setApproved_by(String approved_by) {
-		this.approved_by = approved_by;
-	}
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	private Set<TJob> comments = new HashSet<>();
 
 }

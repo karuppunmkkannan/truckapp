@@ -4,16 +4,29 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Table(name = "tjob")
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Setter(AccessLevel.PUBLIC)
+@Getter(AccessLevel.PUBLIC)
+@ToString
+@Table(name = "TJob")
 @Entity
-public class TJob implements Serializable {
+public class TJob extends Auditable implements Serializable {
 
 	/**
 	 * 
@@ -24,7 +37,7 @@ public class TJob implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	@JsonProperty(value = "id")
-	private String id;
+	private Long id;
 
 	@Column(name = "type_ofmaterial")
 	@JsonProperty(value = "type_ofmaterial")
@@ -49,5 +62,15 @@ public class TJob implements Serializable {
 	@Column(name = "destination")
 	@JsonProperty(value = "destination")
 	private String destination;
+
+	@OneToOne(targetEntity = TStatus.class)
+	@JoinColumn(name = "status")
+	@JsonProperty(value = "status")
+	private TStatus status;
+
+	@ManyToOne(targetEntity = User.class)
+	@JoinColumn(name = "userName")
+	@JsonProperty(value = "userName")
+	private User user;
 
 }

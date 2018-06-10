@@ -4,14 +4,26 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Document implements Serializable {
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Setter(AccessLevel.PUBLIC)
+@Getter(AccessLevel.PUBLIC)
+@ToString
+@Table(name = "Document")
+@Entity
+public class Document extends Auditable implements Serializable {
 
 	/**
 	 * 
@@ -22,7 +34,7 @@ public class Document implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	@JsonProperty(value = "id")
-	private String id;
+	private Long id;
 
 	@Column(name = "name")
 	@JsonProperty(value = "name")

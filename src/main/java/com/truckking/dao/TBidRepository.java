@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.truckking.model.TBid;
 
 @Repository
-public interface TBidRepository extends CrudRepository<TBid, String> {
+public interface TBidRepository extends CrudRepository<TBid, Long> {
 
 }
