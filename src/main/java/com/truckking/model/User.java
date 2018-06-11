@@ -10,7 +10,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -89,8 +88,5 @@ public class User extends Auditable implements Serializable {
 	@JoinColumn(name = "status")
 	@JsonProperty(value = "status")
 	private TStatus status;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-	private Set<TJob> comments = new HashSet<>();
 
 }

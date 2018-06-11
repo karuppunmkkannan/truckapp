@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.truckking.model.TBidDetails;
 import com.truckking.model.TJob;
 import com.truckking.model.User;
 import com.truckking.service.UserService;
@@ -93,6 +94,20 @@ public class MainController {
 			modelMap.addAttribute("status", "success");
 		} catch (Exception e) {
 			logger.error("Exception in insertTJob", e);
+			modelMap.addAttribute("status", "error");
+			modelMap.addAttribute("msg", e.getMessage());
+		}
+		return modelMap;
+	}
+	
+	@RequestMapping(value = "/insertTBid", method = RequestMethod.POST)
+	public @ResponseBody ModelMap insertTBidDetails(@RequestBody TBidDetails tBid) {
+		ModelMap modelMap = new ModelMap();
+		try {
+			modelMap.addAttribute("user", userservice.insertTBidDetails(tBid));
+			modelMap.addAttribute("status", "success");
+		} catch (Exception e) {
+			logger.error("Exception in insertTBid", e);
 			modelMap.addAttribute("status", "error");
 			modelMap.addAttribute("msg", e.getMessage());
 		}

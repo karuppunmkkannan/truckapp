@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -21,9 +22,9 @@ import lombok.ToString;
 @Setter(AccessLevel.PUBLIC)
 @Getter(AccessLevel.PUBLIC)
 @ToString
-@Table(name = "TBid")
+@Table(name = "TBidDetails")
 @Entity
-public class TBid extends Auditable implements Serializable {
+public class TBidDetails extends Auditable implements Serializable {
 
 	/**
 	 * 
@@ -48,5 +49,10 @@ public class TBid extends Auditable implements Serializable {
 	@JoinColumn(name = "status")
 	@JsonProperty(value = "status")
 	private TStatus status;
+
+	@ManyToOne(targetEntity = TJob.class)
+	@JoinColumn(name = "id")
+	@JsonProperty(value = "id")
+	private TJob tJobid;
 
 }

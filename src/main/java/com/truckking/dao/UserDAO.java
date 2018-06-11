@@ -8,7 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.truckking.model.TBid;
+import com.truckking.model.TBidDetails;
 import com.truckking.model.TJob;
 import com.truckking.model.TJobOrderDeatils;
 import com.truckking.model.User;
@@ -27,7 +27,7 @@ public class UserDAO {
 	private UserRepository userRepo;
 
 	@Autowired
-	private TBidRepository tBidRepository;
+	private TBidDetailsRepository tBidRepository;
 
 	@Autowired
 	private TJobRepository tJobRepository;
@@ -38,7 +38,7 @@ public class UserDAO {
 	@Autowired
 	private UserTypeRepository userTypeRepository;
 
-	public TBid insertTBid(TBid tBid) throws Exception {
+	public TBidDetails insertTBidDetails(TBidDetails tBid) throws Exception {
 		return tBidRepository.save(tBid);
 	}
 

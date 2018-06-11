@@ -31,4 +31,5 @@ public class Auditable {
 	@LastModifiedDate
 	@Column(name = "updated_dt")
 	private Date updated_dt;
+	
 }

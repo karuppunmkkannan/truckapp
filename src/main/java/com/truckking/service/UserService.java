@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.truckking.dao.UserDAO;
-import com.truckking.model.TBid;
+import com.truckking.model.TBidDetails;
 import com.truckking.model.TJob;
 import com.truckking.model.TJobOrderDeatils;
 import com.truckking.model.User;
@@ -41,8 +41,8 @@ public class UserService {
 		return userDAO.getUser(userName);
 	}
 
-	public TBid insertTBid(TBid tBid) throws Exception {
-		return userDAO.insertTBid(tBid);
+	public TBidDetails insertTBidDetails(TBidDetails tBid) throws Exception {
+		return userDAO.insertTBidDetails(tBid);
 	}
 
 	public TJob insertTJob(TJob job) throws Exception {
