@@ -4,15 +4,12 @@
 package com.truckking.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -75,8 +72,8 @@ public class User extends Auditable implements Serializable {
 	private String approved_by;
 
 	@OneToOne(targetEntity = UserType.class)
-	@JoinColumn(name = "type")
-	@JsonProperty(value = "type")
+	@JoinColumn(name = "userType")
+	@JsonProperty(value = "userType")
 	private UserType userType;
 
 	@OneToOne(targetEntity = Document.class, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -85,7 +82,7 @@ public class User extends Auditable implements Serializable {
 	private Document document;
 
 	@OneToOne(targetEntity = TStatus.class)
-	@JoinColumn(name = "status")
+	@JoinColumn(name = "status", nullable = false)
 	@JsonProperty(value = "status")
 	private TStatus status;
 

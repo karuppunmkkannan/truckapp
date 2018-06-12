@@ -51,8 +51,13 @@ public class TBidDetails extends Auditable implements Serializable {
 	private TStatus status;
 
 	@ManyToOne(targetEntity = TJob.class)
-	@JoinColumn(name = "id")
-	@JsonProperty(value = "id")
+	@JoinColumn(name = "tJobid", nullable = false)
+	@JsonProperty(value = "tJobid")
 	private TJob tJobid;
+
+	@ManyToOne(targetEntity = User.class)
+	@JoinColumn(name = "transporter", nullable = false)
+	@JsonProperty(value = "transporter")
+	private User transporter;
 
 }

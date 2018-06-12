@@ -13,6 +13,7 @@ import com.truckking.model.TJob;
 import com.truckking.model.TJobOrderDeatils;
 import com.truckking.model.User;
 import com.truckking.model.UserType;
+import com.truckking.utility.Utility;
 
 /**
  * @author Altrocks
@@ -50,8 +51,12 @@ public class UserDAO {
 		return tJobOrderDetailsRepository.save(jobOrderDeatils);
 	}
 
-	public List<TJob> getTJobLists() throws Exception {
-		return (List<TJob>) tJobRepository.findAll();
+	public List<TJob> getAllPendingJobs() throws Exception {
+		return (List<TJob>) tJobRepository.getAllPendingJobs(Utility.UserTypePending);
+	}
+
+	public List<TJob> getAllPendingJobs(String userName, String status) throws Exception {
+		return (List<TJob>) tJobRepository.getAllPendingJobs(userName, status);
 	}
 
 	public List<User> getUserLists() throws Exception {

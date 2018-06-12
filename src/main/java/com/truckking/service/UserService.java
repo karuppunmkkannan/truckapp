@@ -53,8 +53,12 @@ public class UserService {
 		return userDAO.insertTJobOrderDetails(jobOrderDeatils);
 	}
 
-	public List<TJob> getTJobLists() throws Exception {
-		return (List<TJob>) userDAO.getTJobLists();
+	public List<TJob> getAllPendingJobs() throws Exception {
+		return (List<TJob>) userDAO.getAllPendingJobs();
+	}
+
+	public List<TJob> getAllPendingJobs(String userName, String status) throws Exception {
+		return (List<TJob>) userDAO.getAllPendingJobs(userName, status);
 	}
 
 }

@@ -62,10 +62,25 @@ public class MainController {
 	public @ResponseBody ModelMap getTJobLists() {
 		ModelMap modelMap = new ModelMap();
 		try {
-			modelMap.addAttribute("getTJobLists", userservice.getTJobLists());
+			modelMap.addAttribute("getTJobLists", userservice.getAllPendingJobs());
 			modelMap.addAttribute("status", "success");
 		} catch (Exception e) {
 			logger.error("Exception in getTJobLists", e);
+			modelMap.addAttribute("status", "error");
+			modelMap.addAttribute("msg", e.getMessage());
+		}
+		return modelMap;
+	}
+
+	@RequestMapping(value = "/getTJobListsByUser", method = RequestMethod.POST)
+	public @ResponseBody ModelMap getTJobListsByUser(@RequestParam(value = "userName") String userName,
+			@RequestParam(value = "status") String status) {
+		ModelMap modelMap = new ModelMap();
+		try {
+			modelMap.addAttribute("getTJobListsByUser", userservice.getAllPendingJobs(userName, status));
+			modelMap.addAttribute("status", "success");
+		} catch (Exception e) {
+			logger.error("Exception in getTJobListsByUser", e);
 			modelMap.addAttribute("status", "error");
 			modelMap.addAttribute("msg", e.getMessage());
 		}
@@ -99,8 +114,8 @@ public class MainController {
 		}
 		return modelMap;
 	}
-	
-	@RequestMapping(value = "/insertTBid", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/insertTBidDetails", method = RequestMethod.POST)
 	public @ResponseBody ModelMap insertTBidDetails(@RequestBody TBidDetails tBid) {
 		ModelMap modelMap = new ModelMap();
 		try {
@@ -121,7 +136,7 @@ public class MainController {
 			modelMap.addAttribute("user", userservice.insertUser(user));
 			modelMap.addAttribute("status", "success");
 		} catch (DataIntegrityViolationException e) {
-			logger.error("User Already Exists");
+			logger.error("User Already Exists", e);
 			modelMap.addAttribute("status", "error");
 			modelMap.addAttribute("msg", "User Already Exists");
 		} catch (Exception e) {
@@ -143,6 +158,7 @@ public class MainController {
 			if (user != null && user.getUserName().equalsIgnoreCase(userName)) {
 				if (user.getPassword().equalsIgnoreCase(passWord)) {
 					modelMap.addAttribute("user", user);
+					modelMap.addAttribute("msg", "success");
 				} else {
 					modelMap.addAttribute("msg", "Password is incorrect");
 				}

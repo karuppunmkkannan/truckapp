@@ -27,10 +27,6 @@ public class UserType extends Auditable implements Serializable {
 	private static final long serialVersionUID = 5564482785569624030L;
 
 	@Id
-	@Column(name = "id")
-	@JsonProperty(value = "id")
-	private Long id;
-
 	@Column(name = "type", nullable = false, unique = true, updatable = false, insertable = false)
 	@JsonProperty(value = "type")
 	private String type;

@@ -11,4 +11,6 @@ package com.truckking.utility;
 
 public abstract class Utility {
 
+	public static final String UserTypePending = "PENDING";
+
 }

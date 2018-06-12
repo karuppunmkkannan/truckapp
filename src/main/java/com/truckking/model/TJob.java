@@ -56,19 +56,24 @@ public class TJob extends Auditable implements Serializable {
 	@Column(name = "pickup_location")
 	@JsonProperty(value = "pickup_location")
 	private String pickup_location;
+	
+	@ManyToOne(targetEntity = User.class)
+	@JoinColumn(name = "customer", nullable = false)
+	@JsonProperty(value = "customer")
+	private User customer;
 
 	@Column(name = "destination")
 	@JsonProperty(value = "destination")
 	private String destination;
 
 	@OneToOne(targetEntity = TStatus.class)
-	@JoinColumn(name = "status")
+	@JoinColumn(name = "status", nullable = false)
 	@JsonProperty(value = "status")
 	private TStatus status;
 
 	@ManyToOne(targetEntity = User.class)
-	@JoinColumn(name = "userName")
-	@JsonProperty(value = "userName")
+	@JoinColumn(name = "user", nullable = false)
+	@JsonProperty(value = "user")
 	private User user;
 
 }
