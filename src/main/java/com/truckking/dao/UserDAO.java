@@ -58,6 +58,10 @@ public class UserDAO {
 	public List<TJob> getAllPendingJobs(String userName, String status) throws Exception {
 		return (List<TJob>) tJobRepository.getAllPendingJobs(userName, status);
 	}
+	
+	public List<TBidDetails> getTBidDetailsByUser(String userName, String status) throws Exception {
+		return (List<TBidDetails>) tBidRepository.getTBidDetailsByUser(userName, status);
+	}
 
 	public List<User> getUserLists() throws Exception {
 		return (List<User>) userRepo.findAll();

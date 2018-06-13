@@ -87,6 +87,21 @@ public class MainController {
 		return modelMap;
 	}
 
+	@RequestMapping(value = "/getTBidDetailsByUser", method = RequestMethod.POST)
+	public @ResponseBody ModelMap getTBidDetailsByUser(@RequestParam(value = "userName") String userName,
+			@RequestParam(value = "status") String status) {
+		ModelMap modelMap = new ModelMap();
+		try {
+			modelMap.addAttribute("tBidDetails", userservice.getTBidDetailsByUser(userName, status));
+			modelMap.addAttribute("status", "success");
+		} catch (Exception e) {
+			logger.error("Exception in getTBidDetailsByUser", e);
+			modelMap.addAttribute("status", "error");
+			modelMap.addAttribute("msg", e.getMessage());
+		}
+		return modelMap;
+	}
+
 	@RequestMapping(value = "/getUserTypeLists", method = RequestMethod.POST)
 	public @ResponseBody ModelMap getUserTypeLists() {
 		ModelMap modelMap = new ModelMap();
@@ -132,13 +147,15 @@ public class MainController {
 	@RequestMapping(value = "/insertUser", method = RequestMethod.POST)
 	public @ResponseBody ModelMap insertUser(@RequestBody User user) {
 		ModelMap modelMap = new ModelMap();
+		User user1 = new User();
 		try {
-			modelMap.addAttribute("user", userservice.insertUser(user));
-			modelMap.addAttribute("status", "success");
+			user1 = userservice.insertUser(user);
+			modelMap.addAttribute("user", user1);
+			modelMap.addAttribute("msg", "success");
 		} catch (DataIntegrityViolationException e) {
 			logger.error("User Already Exists", e);
-			modelMap.addAttribute("status", "error");
 			modelMap.addAttribute("msg", "User Already Exists");
+			modelMap.addAttribute("user", user1);
 		} catch (Exception e) {
 			logger.error("Exception in insertUser", e);
 			modelMap.addAttribute("status", "error");

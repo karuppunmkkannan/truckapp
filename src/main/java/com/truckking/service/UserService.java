@@ -60,5 +60,9 @@ public class UserService {
 	public List<TJob> getAllPendingJobs(String userName, String status) throws Exception {
 		return (List<TJob>) userDAO.getAllPendingJobs(userName, status);
 	}
+	
+	public List<TBidDetails> getTBidDetailsByUser(String userName, String status) throws Exception {
+		return (List<TBidDetails>) userDAO.getTBidDetailsByUser(userName, status);
+	}
 
 }
