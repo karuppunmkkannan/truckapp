@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.truckking.model.TBidDetails;
 import com.truckking.model.TJob;
@@ -79,4 +81,9 @@ public class UserDAO {
 		return userRepo.findOne(userName);
 	}
 
+	@Transactional(propagation=Propagation.REQUIRED)
+	public int setUserApproved(String userName, String approvedUser) throws Exception {
+		return userRepo.setUserApproved(userName, approvedUser);
+	}
+	
 }

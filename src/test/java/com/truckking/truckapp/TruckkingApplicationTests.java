@@ -66,7 +66,7 @@ public class TruckkingApplicationTests {
 			tBidDetails.setTJobid(tJobid);
 			User user3 = new User();
 			user3.setUserName("1");
-			tBidDetails.setUser(user3);
+			tBidDetails.setTransporter(user3);
 
 			System.out.println(gson.toJson(tBidDetails));
 

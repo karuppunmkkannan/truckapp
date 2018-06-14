@@ -132,7 +132,7 @@
 		</profile>
 	</profiles>
 
-	<build>
+	<!-- <build>
 		<finalName>truckapp</finalName>
 		<plugins>
 			<plugin>
@@ -144,7 +144,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-	</build>
+	</build> -->
 
 
 </project>

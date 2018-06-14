@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.truckking.dao.UserDAO;
 import com.truckking.model.TBidDetails;
@@ -60,9 +62,14 @@ public class UserService {
 	public List<TJob> getAllPendingJobs(String userName, String status) throws Exception {
 		return (List<TJob>) userDAO.getAllPendingJobs(userName, status);
 	}
-	
+
 	public List<TBidDetails> getTBidDetailsByUser(String userName, String status) throws Exception {
 		return (List<TBidDetails>) userDAO.getTBidDetailsByUser(userName, status);
+	}
+
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
+	public int setUserApproved(String userName, String approvedUser) throws Exception {
+		return userDAO.setUserApproved(userName, approvedUser);
 	}
 
 }

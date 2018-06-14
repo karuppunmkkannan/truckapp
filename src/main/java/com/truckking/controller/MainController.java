@@ -87,6 +87,24 @@ public class MainController {
 		return modelMap;
 	}
 
+	@RequestMapping(value = "/setUserApproved", method = RequestMethod.POST)
+	public @ResponseBody ModelMap setUserApproved(@RequestParam(value = "userName") String userName,
+			@RequestParam(value = "approvedUser") String approvedUser) {
+		ModelMap modelMap = new ModelMap();
+		try {
+			if (userservice.setUserApproved(userName, approvedUser) > 0) {
+				modelMap.addAttribute("status", "success");
+			} else {
+				modelMap.addAttribute("status", "Update failed");
+			}
+		} catch (Exception e) {
+			logger.error("Exception in setUserApproved", e);
+			modelMap.addAttribute("status", "error");
+			modelMap.addAttribute("msg", e.getMessage());
+		}
+		return modelMap;
+	}
+
 	@RequestMapping(value = "/getTBidDetailsByUser", method = RequestMethod.POST)
 	public @ResponseBody ModelMap getTBidDetailsByUser(@RequestParam(value = "userName") String userName,
 			@RequestParam(value = "status") String status) {
